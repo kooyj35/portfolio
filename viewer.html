@@ -1,0 +1,188 @@
+﻿<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portfolio HTML Viewer</title>
+  <style>
+    :root { --line: rgba(255,255,255,.25); --panel: rgba(8,12,24,.55); --txt:#e8f1ff; }
+    * { box-sizing: border-box; }
+    html, body { margin:0; width:100%; height:100%; background:#000; overflow:hidden; color:var(--txt); font-family:"Segoe UI","Noto Sans KR",sans-serif; }
+
+    .stage {
+      position: fixed;
+      inset: 0;
+      background: #000;
+      overflow: hidden;
+    }
+
+    /* 1280x720 source is scaled to fully cover viewport */
+    #slideFrame {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 1280px;
+      height: 720px;
+      border: 0;
+      transform-origin: center center;
+      background: #000;
+    }
+
+    .hud {
+      position: fixed;
+      left: 12px;
+      top: 12px;
+      right: 12px;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 10px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--panel);
+      backdrop-filter: blur(8px);
+    }
+    .left, .right { display:flex; gap:8px; align-items:center; }
+    button {
+      border: 1px solid var(--line);
+      background: rgba(20,32,64,.9);
+      color: var(--txt);
+      border-radius: 8px;
+      padding: 6px 10px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    button:hover { border-color:#4ec8ff; }
+    .meta { font-size: 13px; opacity:.95; }
+
+    .hint {
+      position: fixed;
+      right: 12px;
+      bottom: 12px;
+      z-index: 10;
+      font-size: 12px;
+      padding: 5px 8px;
+      border:1px solid var(--line);
+      border-radius:8px;
+      background: var(--panel);
+    }
+
+    .hidden { display:none !important; }
+  </style>
+</head>
+<body>
+  <div class="stage">
+    <iframe id="slideFrame" title="portfolio slide" loading="eager"></iframe>
+  </div>
+
+  <div class="hud" id="hud">
+    <div class="left">
+      <button id="prevBtn" type="button">Prev</button>
+      <button id="nextBtn" type="button">Next</button>
+      <button id="fsBtn" type="button">Fullscreen</button>
+    </div>
+    <div class="meta" id="meta">Slide 1 / 1</div>
+    <div class="right">
+      <button id="openBtn" type="button">Open Current</button>
+      <button id="hudBtn" type="button">Hide UI (H)</button>
+    </div>
+  </div>
+
+  <div class="hint" id="hint">Keys: ← →, Home, End, F, H</div>
+
+  <script>
+    const frame = document.getElementById("slideFrame");
+    const meta = document.getElementById("meta");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const fsBtn = document.getElementById("fsBtn");
+    const openBtn = document.getElementById("openBtn");
+    const hudBtn = document.getElementById("hudBtn");
+    const hud = document.getElementById("hud");
+    const hint = document.getElementById("hint");
+
+    const allFiles = Array.from({ length: 99 }, (_, i) => `slide_${String(i + 1).padStart(2, "0")}.html`);
+    const existing = [];
+    let idx = 0;
+
+    function applyCoverScale() {
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+      const scale = Math.max(vw / 1280, vh / 720);
+      frame.style.transform = `translate(-50%, -50%) scale(${scale})`;
+    }
+
+    async function probeFiles() {
+      for (const f of allFiles) {
+        try {
+          const r = await fetch(f, { method: "HEAD", cache: "no-store" });
+          if (r.ok) existing.push(f);
+        } catch {}
+      }
+      if (!existing.length) {
+        meta.textContent = "No slide_XX.html found in this folder";
+        return;
+      }
+      render();
+    }
+
+    function render() {
+      frame.src = existing[idx];
+      meta.textContent = `Slide ${idx + 1} / ${existing.length} (${existing[idx]})`;
+      prevBtn.disabled = idx === 0;
+      nextBtn.disabled = idx === existing.length - 1;
+    }
+
+    function next() { if (idx < existing.length - 1) { idx++; render(); } }
+    function prev() { if (idx > 0) { idx--; render(); } }
+    function first() { idx = 0; render(); }
+    function last() { idx = existing.length - 1; render(); }
+
+    function toggleUI() {
+      hud.classList.toggle("hidden");
+      hint.classList.toggle("hidden");
+    }
+
+    prevBtn.addEventListener("click", prev);
+    nextBtn.addEventListener("click", next);
+    openBtn.addEventListener("click", () => {
+      if (!existing.length) return;
+      window.open(existing[idx], "_blank", "noopener,noreferrer");
+    });
+
+    fsBtn.addEventListener("click", () => {
+      if (!document.fullscreenElement) document.documentElement.requestFullscreen?.();
+      else document.exitFullscreen?.();
+    });
+
+    hudBtn.addEventListener("click", toggleUI);
+
+    window.addEventListener("resize", applyCoverScale);
+
+    window.addEventListener("keydown", (e) => {
+      if (!existing.length) return;
+      const k = e.key.toLowerCase();
+      if (k === "arrowright" || k === "pagedown" || k === "n") next();
+      if (k === "arrowleft" || k === "pageup" || k === "p") prev();
+      if (k === "home") first();
+      if (k === "end") last();
+      if (k === "f") {
+        if (!document.fullscreenElement) document.documentElement.requestFullscreen?.();
+        else document.exitFullscreen?.();
+      }
+      if (k === "h") toggleUI();
+    });
+
+    document.addEventListener("click", (e) => {
+      if (e.target.closest("button")) return;
+      const x = e.clientX / window.innerWidth;
+      if (x > 0.6) next();
+      if (x < 0.4) prev();
+    });
+
+    applyCoverScale();
+    probeFiles();
+  </script>
+</body>
+</html>

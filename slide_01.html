@@ -1,0 +1,193 @@
+﻿<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>데이터 사이언스 포트폴리오 표지</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&amp;family=Montserrat:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f3f4f6;
+            overflow: hidden;
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            overflow: hidden;
+            background-color: #0f172a; /* Slate 900 */
+            color: white;
+            display: flex;
+        }
+        /* SVG Background mimicking gradient */
+        .bg-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.6;
+        }
+        .content-wrapper {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            width: 100%;
+            height: 100%;
+        }
+        .left-panel {
+            flex: 1.2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-left: 80px;
+            padding-right: 40px;
+        }
+        .right-panel {
+            flex: 0.8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .accent-text {
+            color: #38bdf8; /* Sky 400 */
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+        .deco-circle {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.4;
+        }
+        .circle-1 {
+            width: 400px;
+            height: 400px;
+            background-color: #3b82f6;
+            top: -100px;
+            right: -100px;
+        }
+        .circle-2 {
+            width: 300px;
+            height: 300px;
+            background-color: #8b5cf6;
+            bottom: -50px;
+            left: -50px;
+        }
+        h1 {
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+        .tag {
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 9999px;
+            background-color: rgba(56, 189, 248, 0.15);
+            color: #7dd3fc;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+        }
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<!-- Abstract Background using SVG -->
+<svg class="bg-pattern" preserveaspectratio="xMidYMid slice" viewbox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<pattern height="40" id="grid" patternunits="userSpaceOnUse" width="40">
+<path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"></path>
+</pattern>
+</defs>
+<rect fill="url(#grid)" height="100%" width="100%"></rect>
+<circle cx="1000" cy="200" fill="#1e3a8a" fill-opacity="0.3" filter="url(#blurMe)" r="300"></circle>
+<circle cx="200" cy="600" fill="#4c1d95" fill-opacity="0.3" filter="url(#blurMe)" r="250"></circle>
+<filter id="blurMe">
+<fegaussianblur in="SourceGraphic" stddeviation="40"></fegaussianblur>
+</filter>
+</svg>
+<div class="content-wrapper">
+<div class="left-panel">
+<div style="margin-bottom: 24px;">
+<span class="tag">오라클 융합 과정</span>
+<span class="tag">Portfolio</span>
+</div>
+<h1 style="font-size: 4.5rem; font-weight: 900; margin-bottom: 20px;">
+<p style="margin:0;">DATA</p>
+<p class="accent-text" style="margin:0;">SCIENCE</p>
+<p style="margin:0;">PORTFOLIO</p>
+</h1>
+<div style="width: 80px; height: 6px; background-color: #38bdf8; margin: 30px 0;"></div>
+<p style="font-size: 1.5rem; font-weight: 300; color: #cbd5e1; margin: 0 0 10px 0;">
+                    데이터 분석 · 머신러닝 · 시각화
+                </p>
+<p style="font-size: 1.1rem; color: #94a3b8; max-width: 600px; line-height: 1.6;">
+                    데이터에서 인사이트를 발굴하고 실질적인 가치를 창출하는<br/>
+                    데이터 분석가 <strong style="color:white; font-weight: 600;">[이름]</strong>입니다.
+                </p>
+</div>
+<div class="right-panel">
+<!-- Visual Element: Abstract Data Visualization Representation -->
+<div style="position: relative; width: 450px; height: 450px;">
+<!-- Decorative blurred circles behind the card -->
+<div style="position: absolute; top: 10%; right: 10%; width: 200px; height: 200px; background: #3b82f6; filter: blur(80px); opacity: 0.4; border-radius: 50%;"></div>
+<div style="position: absolute; bottom: 10%; left: 10%; width: 180px; height: 180px; background: #a855f7; filter: blur(80px); opacity: 0.4; border-radius: 50%;"></div>
+<!-- Main visual content -->
+<div class="glass-card" style="width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+<!-- Mockup Chart Elements -->
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+<div style="width: 120px; height: 12px; background: rgba(255,255,255,0.2); border-radius: 6px;"></div>
+<i class="fas fa-ellipsis-h" style="color: rgba(255,255,255,0.4);"></i>
+</div>
+<!-- Line Chart Visualization (CSS only) -->
+<div style="flex: 1; display: flex; align-items: flex-end; padding-bottom: 20px; gap: 15px;">
+<div style="width: 12%; height: 30%; background: #38bdf8; border-radius: 4px; opacity: 0.3;"></div>
+<div style="width: 12%; height: 50%; background: #38bdf8; border-radius: 4px; opacity: 0.5;"></div>
+<div style="width: 12%; height: 40%; background: #38bdf8; border-radius: 4px; opacity: 0.4;"></div>
+<div style="width: 12%; height: 70%; background: #38bdf8; border-radius: 4px; opacity: 0.7;"></div>
+<div style="width: 12%; height: 60%; background: #38bdf8; border-radius: 4px; opacity: 0.6;"></div>
+<div style="width: 12%; height: 90%; background: #38bdf8; border-radius: 4px;"></div>
+<div style="width: 12%; height: 75%; background: #38bdf8; border-radius: 4px; opacity: 0.8;"></div>
+</div>
+<!-- Info Cards -->
+<div style="display: flex; gap: 15px;">
+<div style="flex: 1; background: rgba(255,255,255,0.1); padding: 15px; border-radius: 12px;">
+<i class="fas fa-brain accent-text" style="font-size: 1.2rem; margin-bottom: 8px;"></i>
+<p style="font-size: 0.8rem; color: #cbd5e1; margin: 0;">Machine Learning</p>
+</div>
+<div style="flex: 1; background: rgba(255,255,255,0.1); padding: 15px; border-radius: 12px;">
+<i class="fas fa-chart-line accent-text" style="font-size: 1.2rem; margin-bottom: 8px;"></i>
+<p style="font-size: 0.8rem; color: #cbd5e1; margin: 0;">Data Analysis</p>
+</div>
+</div>
+</div>
+<!-- Floating Icons -->
+<div style="position: absolute; top: -20px; right: -20px; background: #0f172a; padding: 15px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 20px rgba(0,0,0,0.3);">
+<i class="fab fa-python" style="font-size: 2rem; color: #fbbf24;"></i>
+</div>
+<div style="position: absolute; bottom: 80px; left: -30px; background: #0f172a; padding: 12px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 20px rgba(0,0,0,0.3);">
+<i class="fas fa-database" style="font-size: 1.5rem; color: #ec4899;"></i>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
+

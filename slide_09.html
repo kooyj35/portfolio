@@ -1,0 +1,262 @@
+﻿<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>연락처 &amp; 마무리</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&amp;family=Montserrat:wght@400;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #0f172a;
+            overflow: hidden;
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            overflow: hidden;
+            background-color: #0f172a;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        /* Background Elements - No Gradients used */
+        .bg-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .decorative-circle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.15;
+        }
+        .content-wrapper {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 1000px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+        }
+        /* Typography */
+        .main-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 5rem;
+            font-weight: 900;
+            line-height: 1;
+            margin: 0;
+            letter-spacing: -0.02em;
+            color: white;
+            text-align: center;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .sub-message {
+            font-size: 1.4rem;
+            color: #cbd5e1;
+            text-align: center;
+            max-width: 700px;
+            line-height: 1.6;
+            margin: 0;
+        }
+        /* Contact Grid */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            width: 100%;
+            margin-top: 20px;
+        }
+        .contact-card {
+            background-color: rgba(30, 41, 59, 0.6); /* Slate 800 */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 25px 30px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+        .contact-card:hover {
+            background-color: rgba(30, 41, 59, 0.9);
+            border-color: rgba(56, 189, 248, 0.4);
+            transform: translateY(-2px);
+        }
+        .icon-box {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+        .card-text h3 {
+            margin: 0 0 4px 0;
+            font-size: 0.9rem;
+            color: #94a3b8; /* Slate 400 */
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+        .card-text p {
+            margin: 0;
+            font-size: 1.1rem;
+            color: #e2e8f0;
+            font-weight: 500;
+        }
+        /* Bottom Area */
+        .bottom-area {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            margin-top: 20px;
+            width: 100%;
+            justify-content: center;
+        }
+        .qr-placeholder {
+            width: 120px;
+            height: 120px;
+            background-color: white;
+            padding: 10px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .qr-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .cta-box {
+            flex: 1;
+            max-width: 500px;
+            border-left: 4px solid #38bdf8;
+            padding-left: 20px;
+        }
+        .cta-text {
+            font-size: 1.2rem;
+            color: white;
+            font-weight: 500;
+            line-height: 1.5;
+            margin: 0;
+        }
+        .highlight {
+            color: #38bdf8; /* Sky 400 */
+        }
+        
+        /* Specific Colors */
+        .bg-email { background-color: rgba(239, 68, 68, 0.2); color: #fca5a5; border: 1px solid rgba(239, 68, 68, 0.3); }
+        .bg-github { background-color: rgba(255, 255, 255, 0.1); color: #f1f5f9; border: 1px solid rgba(255, 255, 255, 0.2); }
+        .bg-linkedin { background-color: rgba(59, 130, 246, 0.2); color: #93c5fd; border: 1px solid rgba(59, 130, 246, 0.3); }
+        .bg-blog { background-color: rgba(168, 85, 247, 0.2); color: #d8b4fe; border: 1px solid rgba(168, 85, 247, 0.3); }
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<!-- Abstract Background -->
+<div class="bg-layer">
+<svg height="720" viewbox="0 0 1280 720" width="1280" xmlns="http://www.w3.org/2000/svg">
+<!-- Grid Pattern -->
+<defs>
+<pattern height="40" id="smallGrid" patternunits="userSpaceOnUse" width="40">
+<circle cx="2" cy="2" fill="rgba(255,255,255,0.05)" r="1"></circle>
+</pattern>
+</defs>
+<rect fill="url(#smallGrid)" height="100%" width="100%"></rect>
+<!-- Decorative Circles (No Gradients, using solid colors with opacity) -->
+<circle cx="200" cy="150" fill="#1e3a8a" opacity="0.4" r="300"></circle>
+<circle cx="1100" cy="600" fill="#4c1d95" opacity="0.3" r="350"></circle>
+<!-- Connection Lines -->
+<path d="M100,600 Q300,500 500,650 T900,600" fill="none" stroke="#38bdf8" stroke-dasharray="10,10" stroke-opacity="0.2" stroke-width="2"></path>
+<path d="M1100,100 Q900,200 700,150" fill="none" stroke="#a855f7" stroke-dasharray="5,5" stroke-opacity="0.2" stroke-width="2"></path>
+</svg>
+</div>
+<div class="content-wrapper">
+<!-- Header Section -->
+<div style="text-align: center;">
+<h1 class="main-title">
+<span style="color:white;">THANK</span> <span class="highlight">YOU</span>
+</h1>
+<p class="sub-message">
+                    데이터 분석과 머신러닝을 통해 문제를 해결하고 가치를 창출하는 과정에 함께하고 싶습니다.
+                    <br/>경청해주셔서 감사합니다.
+                </p>
+</div>
+<!-- Contact Information Grid -->
+<div class="contact-grid">
+<!-- Email -->
+<div class="contact-card">
+<div class="icon-box bg-email">
+<i class="fas fa-envelope"></i>
+</div>
+<div class="card-text">
+<h3>Email</h3>
+<p>email@address.com</p>
+</div>
+</div>
+<!-- GitHub -->
+<div class="contact-card">
+<div class="icon-box bg-github">
+<i class="fab fa-github"></i>
+</div>
+<div class="card-text">
+<h3>GitHub</h3>
+<p>github.com/username</p>
+</div>
+</div>
+<!-- LinkedIn -->
+<div class="contact-card">
+<div class="icon-box bg-linkedin">
+<i class="fab fa-linkedin-in"></i>
+</div>
+<div class="card-text">
+<h3>LinkedIn</h3>
+<p>linkedin.com/in/username</p>
+</div>
+</div>
+<!-- Blog/Notion -->
+<div class="contact-card">
+<div class="icon-box bg-blog">
+<i class="fas fa-pen-nib"></i>
+</div>
+<div class="card-text">
+<h3>Blog / Notion</h3>
+<p>notion.so/portfolio-link</p>
+</div>
+</div>
+</div>
+<!-- Bottom CTA & QR -->
+<div class="bottom-area">
+<div class="qr-placeholder">
+<!-- Placeholder QR Code Icon -->
+<i class="fas fa-qrcode" style="font-size: 4rem; color: #1e293b;"></i>
+</div>
+<div class="cta-box">
+<p class="cta-text">
+                        이 포트폴리오의 자세한 코드와 분석 과정은<br/>
+<span class="highlight">GitHub 저장소</span> 또는 <span class="highlight">QR 코드</span>를 통해 확인하실 수 있습니다.
+                    </p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
+
